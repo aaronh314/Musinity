@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_left">16dp</dimen>
+    <dimen name="image_size">180dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_padding_top">8dp</dimen>
+    <dimen name="header_text_size">20sp</dimen>
+    <dimen name="genre_text_size">15sp</dimen>
+    <dimen name="generate_button_height">70dp</dimen>
+    <dimen name="generate_button_width">210dp</dimen>
+    <dimen name="generate_button_radius">35dp</dimen>
+    <dimen name="note_icon_dimen">50dp</dimen>
+    <dimen name="play_dimen">120dp</dimen>
+    <dimen name="skip_dimen">60dp</dimen>
+</resources>

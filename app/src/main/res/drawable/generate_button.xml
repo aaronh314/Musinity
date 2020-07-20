@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/colorAccent" />
+    <size
+        android:width="@dimen/generate_button_width"
+        android:height="@dimen/generate_button_height" />
+    <corners
+        android:bottomLeftRadius="@dimen/generate_button_radius"
+        android:bottomRightRadius="@dimen/generate_button_radius"
+        android:topLeftRadius="@dimen/generate_button_radius"
+        android:topRightRadius="@dimen/generate_button_radius"/>
+</shape>
