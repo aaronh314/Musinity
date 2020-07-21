@@ -96,7 +96,9 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/classical_list"
@@ -107,7 +109,42 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingRight="@dimen/card_left">
+
+                        <com.example.musinity.CoverView
+                            android:id="@+id/bach_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="@dimen/card_corner_radius"
+                            app:genre_name="bach">
+
+                            <ImageView
+                                android:id="@+id/bach_imageview"
+                                android:layout_width="@dimen/image_size"
+                                android:layout_height="@dimen/image_size"
+                                android:background="#F4F4F4"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/bach" />
+                        </com.example.musinity.CoverView>
+
+                        <TextView
+                            android:id="@+id/bach_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lineto_circular_pro_book"
+                            android:text="Bach"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/genre_text_size" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingRight="@dimen/card_left">
 
                         <com.example.musinity.CoverView
                             android:id="@+id/beethoven_cardview"
@@ -117,7 +154,7 @@
                             app:genre_name="@string/beethoven">
 
                             <ImageView
-                                android:id="@+id/mozart_imageview"
+                                android:id="@+id/beethoven_imageview"
                                 android:layout_width="@dimen/image_size"
                                 android:layout_height="@dimen/image_size"
                                 android:background="#F4F4F4"
@@ -126,7 +163,7 @@
                         </com.example.musinity.CoverView>
 
                         <TextView
-                            android:id="@+id/mozart_title"
+                            android:id="@+id/beethoven_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lineto_circular_pro_book"
@@ -136,6 +173,41 @@
                             android:textSize="@dimen/genre_text_size" />
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.example.musinity.CoverView
+                            android:id="@+id/mozart_cardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="@dimen/card_corner_radius"
+                            app:genre_name="mozart">
+
+                            <ImageView
+                                android:id="@+id/mozart_imageview"
+                                android:layout_width="@dimen/image_size"
+                                android:layout_height="@dimen/image_size"
+                                android:background="#F4F4F4"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/mozart" />
+                        </com.example.musinity.CoverView>
+
+                        <TextView
+                            android:id="@+id/mozart_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lineto_circular_pro_book"
+                            android:text="Mozart"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/genre_text_size" />
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -158,7 +230,8 @@
                     android:id="@+id/jazz_list"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/card_left">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -167,94 +240,31 @@
                         android:paddingRight="@dimen/card_left">
 
                         <com.example.musinity.CoverView
-                            android:id="@+id/louis_armstrong_cardview"
+                            android:id="@+id/jazz_piano_cardview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardCornerRadius="@dimen/card_corner_radius"
-                            app:genre_name="@string/louis_armstrong">
+                            app:genre_name="jazz_piano">
 
                             <ImageView
                                 android:layout_width="@dimen/image_size"
                                 android:layout_height="@dimen/image_size"
                                 android:background="#F4F4F4"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/ragtime_cartoon" />
+                                android:src="@drawable/jazz_piano" />
                         </com.example.musinity.CoverView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="@string/louis_armstrong"
+                            android:text="Jazz Piano"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="@dimen/genre_text_size" />
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingRight="@dimen/card_left">
-
-                        <com.example.musinity.CoverView
-                            app:genre_name="@string/louis_armstrong"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="@dimen/card_corner_radius">
-
-                            <ImageView
-                                android:id="@+id/jazz_imageview"
-                                android:layout_width="@dimen/image_size"
-                                android:layout_height="@dimen/image_size"
-                                android:background="#F4F4F4"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ragtime_cartoon" />
-                        </com.example.musinity.CoverView>
-
-                        <TextView
-                            android:id="@+id/jazz_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="@string/ragtime_title"
-                            android:textAlignment="center"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/genre_text_size" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingRight="@dimen/card_left">
-
-                        <com.example.musinity.CoverView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="@dimen/card_corner_radius"
-                            app:genre_name="@string/louis_armstrong">
-
-                            <ImageView
-                                android:layout_width="@dimen/image_size"
-                                android:layout_height="@dimen/image_size"
-                                android:background="#F4F4F4"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ragtime_cartoon" />
-                        </com.example.musinity.CoverView>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="@string/louis_armstrong"
-                            android:textAlignment="center"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/genre_text_size" />
-
-                    </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
 
