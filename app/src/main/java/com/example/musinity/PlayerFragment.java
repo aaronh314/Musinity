@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,8 +15,7 @@ import androidx.fragment.app.Fragment;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PlayerFragment extends Fragment {
-    private PianoRollView pianoRollView;
+public class PlayerFragment extends Fragment{
     private MusicGenerator model;
     private NotePlayer notePlayer;
     private Handler handler;
@@ -23,6 +23,7 @@ public class PlayerFragment extends Fragment {
     private ImageView playPauseButton;
     private boolean playing = false;
     private TextView nowGeneratingTextView;
+    private PianoRollView pianoRollView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +40,7 @@ public class PlayerFragment extends Fragment {
         runnable = new Runnable() {
             @Override
             public void run() {
+                pianoRollView.update(notePlayer.getTop(), notePlayer.getThreshold(), notePlayer.getMeasureIndex());
                 notePlayer.playNotes();
                 if (notePlayer.getQueueSize() < 3) {
                     generateMeasure();
@@ -118,6 +120,9 @@ public class PlayerFragment extends Fragment {
 
             }
         });
+
+        pianoRollView = getView().findViewById(R.id.piano_roll_view);
+
     }
 
     public void newGenreSelected(String genre) throws IOException {
@@ -130,15 +135,17 @@ public class PlayerFragment extends Fragment {
 
     public void generateMeasure() {
         float[][][] measures = model.generateMeasure();
-        final ArrayList<ArrayList<Float>> notes = new ArrayList<>();
+        //ArrayList<ArrayList<Float>> notes = new ArrayList<>();
+
+        float[][] notes = new float[measures.length * measures[0].length][measures[0][0].length];
+        int row = 0;
 
         for(float[][] measure : measures) {
             for (int y = 0; y < measure.length; y++) {
-                ArrayList<Float> noteProb = new ArrayList<>();
                 for (int x = 0; x < measure[y].length; x++) {
-                    noteProb.add(measure[y][x]);
+                    notes[row][x] = measure[y][x];
                 }
-                notes.add(noteProb);
+                row++;
             }
         }
 

@@ -14,7 +14,7 @@ import java.util.Queue;
 public class NotePlayer {
     private SoundPool soundPool;
     private int[] soundPoolNoteIDs;
-    private Queue<ArrayList<ArrayList<Float>>> measuresQueue;
+    private Queue<float[][]> measuresQueue;
     private int measureIndex = 0;
     private double threshold;
 
@@ -39,9 +39,9 @@ public class NotePlayer {
 
     public void playNotes() {
 
-        if (measureIndex < measuresQueue.peek().size()) {
-            for (int note = 0; note < measuresQueue.peek().get(measureIndex).size(); note++) {
-                if (measuresQueue.peek().get(measureIndex).get(note) > threshold) {
+        if (measureIndex < measuresQueue.peek().length) {
+            for (int note = 0; note < measuresQueue.peek()[measureIndex].length; note++) {
+                if (measuresQueue.peek()[measureIndex][note] > threshold) {
                     soundPool.play(soundPoolNoteIDs[note + (128 - 96) / 2], 1, 1, 1, 0, 1);
                 }
             }
@@ -56,7 +56,7 @@ public class NotePlayer {
         this.threshold = threshold;
     }
 
-    public void addNotesArray(ArrayList<ArrayList<Float>> noteProbs) {
+    public void addNotesArray(float[][] noteProbs) {
         measuresQueue.add(noteProbs);
     }
 
@@ -65,11 +65,23 @@ public class NotePlayer {
     }
 
     public void skipForward() {
-        measureIndex = measuresQueue.peek().size();
+        measureIndex = measuresQueue.peek().length;
+    }
+
+    public float[][] getTop() {
+        return measuresQueue.peek();
+    }
+
+    public double getThreshold() {
+        return threshold;
     }
 
     public void skipBackward() {
         measureIndex = 0;
+    }
+
+    public int getMeasureIndex() {
+        return measureIndex;
     }
 
     private int[] noteIDs = new int[]{
