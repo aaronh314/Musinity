@@ -17,6 +17,7 @@ public class PianoRollView extends View {
     private float [][] notes;
     private double threshold;
     private int measureIndex;
+    private int lastPlayedIndex;
 
     public PianoRollView(Context context) {
         super(context);
@@ -41,9 +42,8 @@ public class PianoRollView extends View {
     public void init(Context context) {
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setAlpha(150);
         paintHighlight = new Paint();
-        paintHighlight.setColor(Color.BLUE);
+        paintHighlight.setColor(Color.BLACK);
     }
 
     public void update(float[][] notes, double threshold, int measureIndex) {
@@ -66,8 +66,12 @@ public class PianoRollView extends View {
                     float right = left + width;
                     float top = height * y;
                     float bottom = top + height + 5;
-                    if (y == measureIndex)
+                    if (y == measureIndex) {
+                        lastPlayedIndex = measureIndex;
+                    }
+                    if (y == lastPlayedIndex) {
                         canvas.drawRect(left, top, right, bottom, paintHighlight);
+                    }
                     else
                         canvas.drawRect(left, top, right, bottom, paint);
                 }
