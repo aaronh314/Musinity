@@ -11,3 +11,5 @@ The model (MusinityNet) takes 120 numbers sampled from a Gaussian distribution a
 The PlayerFragment class is in charge of playing the music. It has a MusicGenerator (the model) in charge of generating measures and a NotePlayer class in charge of playing notes. I used a SoundPool to play the sounds, but created the NotePlayer class to reduce code density in the fragment class.  
 
 Here's a short gif for app demonstration:  
+
+![](app_demo.gif)
