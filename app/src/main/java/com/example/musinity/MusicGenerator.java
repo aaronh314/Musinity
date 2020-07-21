@@ -41,19 +41,5 @@ public class MusicGenerator {
         return measures[0];
     }
 
-    public static int getResId(String variableName, Class<?> c) {
-        Field field = null;
-        int resId = 0;
-        try {
-            field = c.getField(variableName);
-            try {
-                resId = field.getInt(null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resId;
-    }
+    public void closeModel() {model.close();}
 }

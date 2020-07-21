@@ -10,6 +10,6 @@
     <dimen name="generate_button_width">210dp</dimen>
     <dimen name="generate_button_radius">35dp</dimen>
     <dimen name="note_icon_dimen">50dp</dimen>
-    <dimen name="play_dimen">120dp</dimen>
-    <dimen name="skip_dimen">60dp</dimen>
+    <dimen name="play_dimen">100dp</dimen>
+    <dimen name="skip_dimen">50dp</dimen>
 </resources>
