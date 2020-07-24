@@ -1,5 +1,6 @@
 package com.example.musinity;
 
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -54,7 +55,11 @@ public class SongListFragment extends Fragment implements View.OnTouchListener {
         imageView.setImageDrawable(original.getDrawable());
 
         String genreTitle = getArguments().getString("title");
-        loadSongTitles(genreTitle.toLowerCase());
+        try {
+            loadSongTitles(genreTitle.toLowerCase());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         cardPressed = AnimationUtils.loadAnimation(getContext(), R.anim.card_pressed);
         cardReleased = AnimationUtils.loadAnimation(getContext(), R.anim.card_released);
@@ -84,15 +89,9 @@ public class SongListFragment extends Fragment implements View.OnTouchListener {
         return true;
     }
 
-    public void loadSongTitles(String file) {
-        InputStream inputStream;
-        switch (file) {
-            case "ragtime":
-                inputStream = getResources().openRawResource(R.raw.ragtime);
-                break;
-            default:
-                return;
-        }
+    public void loadSongTitles(String file) throws IOException {
+        AssetManager assetManager = getContext().getAssets();
+        InputStream inputStream = assetManager.open("titles/" + file + ".csv");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         LinearLayout linearLayout = getView().findViewById(R.id.linear_layout);

@@ -1,6 +1,7 @@
 package com.example.musinity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,6 +19,7 @@ public class PianoRollView extends View {
     private double threshold;
     private int measureIndex;
     private int lastPlayedIndex;
+    private SharedPreferences sharedPreferences;
 
     public PianoRollView(Context context) {
         super(context);
@@ -44,6 +46,8 @@ public class PianoRollView extends View {
         paint.setColor(Color.WHITE);
         paintHighlight = new Paint();
         paintHighlight.setColor(Color.BLACK);
+
+        sharedPreferences = context.getSharedPreferences(SettingsFragment.SETTINGS_NAME, 0);
     }
 
     public void update(float[][] notes, double threshold, int measureIndex) {
@@ -54,6 +58,9 @@ public class PianoRollView extends View {
     }
 
     public void drawPianoRoll(Canvas canvas) {
+
+        if (!sharedPreferences.getBoolean(SettingsFragment.PIANO_ROLL_KEY, false)) return;
+
         if (notes == null) return;
 
         float width = (float) getWidth() / notes[0].length;
@@ -61,7 +68,8 @@ public class PianoRollView extends View {
 
         for (int y = 0; y < notes.length; y++) {
             for (int x = 0; x < notes[y].length; x++) {
-                if (notes[y][x] > threshold) {
+                if (notes[y][x] > threshold &&
+                        (x == notes[y].length - 1 || notes[y][x+1] <= threshold)) {
                     float left = width * x;
                     float right = left + width;
                     float top = height * y;

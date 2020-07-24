@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">Musinity</string>
+
+    <string name="home_title">Explore.</string>
+    <string name="settings_title">Settings.</string>
+    <string name="favorites_title">Favorites.</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_favorite">Favorites</string>
     <string name="menu_settings">Settings</string>
-    <string name="home_screen">Explore.</string>
+
     <string name="ragtime_title">Ragtime</string>
-    <string name="classical">Classical</string>
-    <string name="beethoven">Beethoven</string>
+    <string name="games">Games</string>
+    <string name="undertale">Undertale</string>
     <string name="louis_armstrong">Louis Armstrong</string>
     <string name="generate_button">Generate Music</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

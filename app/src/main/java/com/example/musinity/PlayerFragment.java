@@ -1,11 +1,12 @@
 package com.example.musinity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PlayerFragment extends Fragment{
     private MusicGenerator model;
@@ -24,6 +24,10 @@ public class PlayerFragment extends Fragment{
     private boolean playing = false;
     private TextView nowGeneratingTextView;
     private PianoRollView pianoRollView;
+    private double MIN_THRESHOLD = 0.01;
+    private double MAX_THRESHOLD = 0.95;
+    private double currThreshold;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +39,12 @@ public class PlayerFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        notePlayer = new NotePlayer(getActivity());
+        Log.i("PlayerFragment", "onCreate");
+        try {
+            notePlayer = new NotePlayer(getActivity());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -48,11 +57,14 @@ public class PlayerFragment extends Fragment{
                 handler.postDelayed(this, 10);
             }
         };
+
+        currThreshold = MIN_THRESHOLD + (50.0 / 100.0) * MAX_THRESHOLD;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.i("PlayerFragment", "onStart");
         playPauseButton = getView().findViewById(R.id.play_pause_button);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +99,10 @@ public class PlayerFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notePlayer.skipForward();
+                if (notePlayer.getQueueSize() < 3) {
+                    generateMeasure();
+                }
+                pianoRollView.update(notePlayer.getTop(), notePlayer.getThreshold(), notePlayer.getMeasureIndex());
             }
         });
 
@@ -96,18 +112,22 @@ public class PlayerFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notePlayer.skipBackward();
+                pianoRollView.update(notePlayer.getTop(), notePlayer.getThreshold(), notePlayer.getMeasureIndex());
             }
         });
 
         SeekBar seekBar = getView().findViewById(R.id.threshold_seekBar);
-        seekBar.setProgress(50);
-        notePlayer.setThreshold(0.30 + (50.0 / 100.0) * 0.70);
+        Log.i("PlayerFragment", ""+(int)((currThreshold - MIN_THRESHOLD) / (MAX_THRESHOLD - MIN_THRESHOLD) * 100));
+        int progress = (int)((currThreshold - MIN_THRESHOLD) / MAX_THRESHOLD * 100);
+        seekBar.setProgress(progress);
+        notePlayer.setThreshold(currThreshold);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                double threshold = 0.30 + ((double)progress / 100.0) * 0.70;
-                notePlayer.setThreshold(threshold);
+                currThreshold = MIN_THRESHOLD + ((double)progress / 100.0) * MAX_THRESHOLD;
+                pianoRollView.update(notePlayer.getTop(), currThreshold, notePlayer.getMeasureIndex());
+                notePlayer.setThreshold(currThreshold);
             }
 
             @Override
@@ -123,9 +143,14 @@ public class PlayerFragment extends Fragment{
 
         pianoRollView = getView().findViewById(R.id.piano_roll_view);
 
+
     }
 
     public void newGenreSelected(String genre) throws IOException {
+        if (playing) {
+            pause();
+            notePlayer.clear();
+        }
         model = new MusicGenerator(genre.toLowerCase(), getContext());
         nowGeneratingTextView.setText("Now Generating " + genre);
         model.loadModel(getActivity());

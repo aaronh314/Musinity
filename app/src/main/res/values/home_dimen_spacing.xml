@@ -12,4 +12,8 @@
     <dimen name="note_icon_dimen">50dp</dimen>
     <dimen name="play_dimen">100dp</dimen>
     <dimen name="skip_dimen">50dp</dimen>
+    <dimen name="fragment_title_size">40sp</dimen>
+    <dimen name="scrollview_padding_start">20dp</dimen>
+    <dimen name="bottom_nav_height">70dp</dimen>
+    <dimen name="switch_padding_top">10dp</dimen>
 </resources>

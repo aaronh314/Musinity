@@ -17,16 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp">
+            android:paddingStart="@dimen/scrollview_padding_start"
+            android:paddingTop="@dimen/scrollview_padding_start">
 
             <TextView
                 android:id="@+id/home_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lineto_circular_pro_bold"
-                android:text="@string/home_screen"
-                android:textSize="40sp" />
+                android:text="@string/home_title"
+                android:textSize="@dimen/fragment_title_size" />
 
             <TextView
                 android:id="@+id/oldie_textview"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lineto_circular_pro_book"
                 android:paddingTop="14dp"
-                android:text="@string/classical"
+                android:text="@string/games"
                 android:textColor="#FF5252"
                 android:textSize="@dimen/header_text_size" />
 
@@ -113,53 +113,18 @@
                         android:paddingRight="@dimen/card_left">
 
                         <com.example.musinity.CoverView
-                            android:id="@+id/bach_cardview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="@dimen/card_corner_radius"
-                            app:genre_name="bach">
-
-                            <ImageView
-                                android:id="@+id/bach_imageview"
-                                android:layout_width="@dimen/image_size"
-                                android:layout_height="@dimen/image_size"
-                                android:background="#F4F4F4"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/bach" />
-                        </com.example.musinity.CoverView>
-
-                        <TextView
-                            android:id="@+id/bach_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="Bach"
-                            android:textAlignment="center"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/genre_text_size" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingRight="@dimen/card_left">
-
-                        <com.example.musinity.CoverView
                             android:id="@+id/beethoven_cardview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardCornerRadius="@dimen/card_corner_radius"
-                            app:genre_name="@string/beethoven">
+                            app:genre_name="@string/undertale">
 
                             <ImageView
                                 android:id="@+id/beethoven_imageview"
                                 android:layout_width="@dimen/image_size"
                                 android:layout_height="@dimen/image_size"
-                                android:background="#F4F4F4"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/beethoven" />
+                                android:background="#000000"
+                                android:src="@drawable/undertale" />
                         </com.example.musinity.CoverView>
 
                         <TextView
@@ -167,40 +132,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="@string/beethoven"
-                            android:textAlignment="center"
-                            android:textColor="#000000"
-                            android:textSize="@dimen/genre_text_size" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <com.example.musinity.CoverView
-                            android:id="@+id/mozart_cardview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="@dimen/card_corner_radius"
-                            app:genre_name="mozart">
-
-                            <ImageView
-                                android:id="@+id/mozart_imageview"
-                                android:layout_width="@dimen/image_size"
-                                android:layout_height="@dimen/image_size"
-                                android:background="#F4F4F4"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/mozart" />
-                        </com.example.musinity.CoverView>
-
-                        <TextView
-                            android:id="@+id/mozart_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="Mozart"
+                            android:text="@string/undertale"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="@dimen/genre_text_size" />

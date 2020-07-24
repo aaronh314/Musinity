@@ -3,7 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsFragment"
-    android:background="#fff">
+    android:background="#fff"
+    tools:context=".SettingsFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/scrollview_padding_start"
+            android:paddingTop="@dimen/scrollview_padding_start"
+            android:paddingEnd="@dimen/scrollview_padding_start">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lineto_circular_pro_bold"
+                android:text="@string/settings_title"
+                android:textSize="@dimen/fragment_title_size"
+                android:paddingBottom="30dp"/>
+
+            <Switch
+                android:id="@+id/piano_roll_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/switch_padding_top"
+                android:text="Piano roll in player"
+                android:fontFamily="@font/lineto_circular_black"
+                android:textSize="@dimen/header_text_size" />
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

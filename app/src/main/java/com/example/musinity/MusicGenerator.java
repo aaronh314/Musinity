@@ -21,7 +21,7 @@ public class MusicGenerator {
     }
 
     public void loadModel(Activity activity) throws IOException {
-        String modelPath = genreName + "_net.tflite";
+        String modelPath = "tflite_models/" + genreName + "_net.tflite";
         AssetFileDescriptor fileDescriptor = activity.getAssets().openFd(modelPath);
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
         FileChannel fileChannel = inputStream.getChannel();
