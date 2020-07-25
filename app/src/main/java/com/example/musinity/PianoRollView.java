@@ -59,7 +59,7 @@ public class PianoRollView extends View {
 
     public void drawPianoRoll(Canvas canvas) {
 
-        if (!sharedPreferences.getBoolean(SettingsFragment.PIANO_ROLL_KEY, false)) return;
+        if (!sharedPreferences.getBoolean(SettingsFragment.PIANO_ROLL_KEY, true)) return;
 
         if (notes == null) return;
 

@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lineto_circular_pro_book"
                 android:paddingTop="14dp"
-                android:text="Jazz"
+                android:text="Classical"
                 android:textColor="#FF5252"
                 android:textSize="@dimen/header_text_size" />
 
@@ -176,21 +176,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardCornerRadius="@dimen/card_corner_radius"
-                            app:genre_name="jazz_piano">
+                            app:genre_name="Fast">
 
                             <ImageView
                                 android:layout_width="@dimen/image_size"
                                 android:layout_height="@dimen/image_size"
                                 android:background="#F4F4F4"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/jazz_piano" />
+                                android:src="@drawable/beethoven" />
                         </com.example.musinity.CoverView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lineto_circular_pro_book"
-                            android:text="Jazz Piano"
+                            android:text="Fast Pieces"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="@dimen/genre_text_size" />

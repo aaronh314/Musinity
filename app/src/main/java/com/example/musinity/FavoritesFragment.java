@@ -1,5 +1,7 @@
 package com.example.musinity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,46 +9,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FavoritesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment favorites_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoritesFragment newInstance(String param1, String param2) {
-        FavoritesFragment fragment = new FavoritesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    static final String SAVED_SONGS_KEY = "saved_songs";
+    static final String SAVED_SONGS_PREF_KEY = "saved_songs_pref";
+    static final String SAVED_SONGS_FILE_DIR = "SAVED_SONGS";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -54,5 +32,26 @@ public class FavoritesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.favorites_fragment, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LinearLayout linearLayout = getView().findViewById(R.id.saved_songs_list);
+        ArrayList<SavedSong> savedSongs = loadSongs();
+        if (savedSongs != null) {
+            for (SavedSong song : savedSongs) {
+                linearLayout.addView(song);
+            }
+        }
+    }
+
+    public ArrayList<SavedSong> loadSongs() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SAVED_SONGS_PREF_KEY, Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString(SAVED_SONGS_KEY, null);
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<SavedSong>>() {}.getType();
+        ArrayList<SavedSong> savedSongs = gson.fromJson(json, type);
+        return savedSongs;
     }
 }

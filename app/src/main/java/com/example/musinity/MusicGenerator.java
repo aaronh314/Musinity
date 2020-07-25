@@ -13,6 +13,8 @@ import java.nio.channels.FileChannel;
 import java.util.Random;
 
 public class MusicGenerator {
+
+
     private String genreName;
     private Interpreter model;
 
@@ -21,7 +23,7 @@ public class MusicGenerator {
     }
 
     public void loadModel(Activity activity) throws IOException {
-        String modelPath = "tflite_models/" + genreName + "_net.tflite";
+        String modelPath = "tflite_models/" + genreName.toLowerCase() + "_net.tflite";
         AssetFileDescriptor fileDescriptor = activity.getAssets().openFd(modelPath);
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
         FileChannel fileChannel = inputStream.getChannel();
@@ -42,4 +44,8 @@ public class MusicGenerator {
     }
 
     public void closeModel() {model.close();}
+
+    public String getGenreName() {
+        return genreName;
+    }
 }

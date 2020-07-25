@@ -1,4 +1,5 @@
 package com.example.musinity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,13 +14,28 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 
 public class PlayerFragment extends Fragment{
     private MusicGenerator model;
     private NotePlayer notePlayer;
     private Handler handler;
-    private Runnable runnable;
+    private Runnable generateRunner;
     private ImageView playPauseButton;
     private boolean playing = false;
     private TextView nowGeneratingTextView;
@@ -27,6 +43,11 @@ public class PlayerFragment extends Fragment{
     private double MIN_THRESHOLD = 0.01;
     private double MAX_THRESHOLD = 0.95;
     private double currThreshold;
+
+    @SerializedName("saved_songs")
+    ArrayList<SavedSong> savedSongArrayList;
+
+    private String genre;
 
     @Nullable
     @Override
@@ -45,13 +66,14 @@ public class PlayerFragment extends Fragment{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         handler = new Handler();
-        runnable = new Runnable() {
+        generateRunner = new Runnable() {
             @Override
             public void run() {
                 pianoRollView.update(notePlayer.getTop(), notePlayer.getThreshold(), notePlayer.getMeasureIndex());
                 notePlayer.playNotes();
-                if (notePlayer.getQueueSize() < 3) {
+                if (notePlayer.getQueueSize() < 1) {
                     generateMeasure();
                 }
                 handler.postDelayed(this, 10);
@@ -59,6 +81,8 @@ public class PlayerFragment extends Fragment{
         };
 
         currThreshold = MIN_THRESHOLD + (50.0 / 100.0) * MAX_THRESHOLD;
+
+
     }
 
     @Override
@@ -99,7 +123,7 @@ public class PlayerFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notePlayer.skipForward();
-                if (notePlayer.getQueueSize() < 3) {
+                if (notePlayer.getQueueSize() < 1) {
                     generateMeasure();
                 }
                 pianoRollView.update(notePlayer.getTop(), notePlayer.getThreshold(), notePlayer.getMeasureIndex());
@@ -142,8 +166,6 @@ public class PlayerFragment extends Fragment{
         });
 
         pianoRollView = getView().findViewById(R.id.piano_roll_view);
-
-
     }
 
     public void newGenreSelected(String genre) throws IOException {
@@ -151,7 +173,7 @@ public class PlayerFragment extends Fragment{
             pause();
             notePlayer.clear();
         }
-        model = new MusicGenerator(genre.toLowerCase(), getContext());
+        model = new MusicGenerator(genre, getContext());
         nowGeneratingTextView.setText("Now Generating " + genre);
         model.loadModel(getActivity());
         generateMeasure();
@@ -178,16 +200,15 @@ public class PlayerFragment extends Fragment{
     }
 
     private void play() {
-
         playPauseButton.setImageResource(R.drawable.ic_pause);
         playing = true;
-        handler.postDelayed(runnable, 10);
+        handler.postDelayed(generateRunner, 10);
     }
 
     public void pause() {
         playPauseButton.setImageResource(R.drawable.ic_play_arrow);
         playing = false;
-        handler.removeCallbacks(runnable);
+        handler.removeCallbacks(generateRunner);
     }
 
     @Override
